@@ -12,7 +12,9 @@
 
 <template name="sumoarena">
   {{#unless currentUser}}
-    {{> loginButtons}}
+    <div class="loginButtons">
+      {{> loginButtons}}
+    </div>
   {{/unless}}
   <canvas id="mainStage"></canvas>
 
