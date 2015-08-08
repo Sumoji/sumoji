@@ -1,15 +1,16 @@
 <head>
-  <title>Sumoji.</title>
+  <title>SUMOJIIIII</title>
 </head>
 
 <body>
-  <div class="container">
-    {{> hello}}
-  </div>
+  {{> sumoarena}}
 </body>
 
-<template name="hello">
-  <!-- <canvas id="mainStage"></canvas> -->
-  <p>We've published {{publishes.count}} times.</p>
+<template name="sumoarena">
+  {{#unless currentUser}}
+    <div class="loginButtons">
+      {{> loginButtons}}
+    </div>
+  {{/unless}}
+  <canvas id="mainStage"></canvas>
 </template>
-
