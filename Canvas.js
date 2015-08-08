@@ -2,7 +2,7 @@ Canvas = function() {
   this.canvas = document.getElementById('mainStage');
   this.width = 300;
   this.height = 300;
-  this.c = canvas.getContext('2d');
+  this.c = this.canvas.getContext('2d');
 
   this.canvas.width = this.width;
   this.canvas.height = this.height;
