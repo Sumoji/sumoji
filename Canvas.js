@@ -2,7 +2,7 @@ Canvas = function() {
   this.canvas = document.getElementById('mainStage');
   this.width = 300;
   this.height = 300;
-  this.c = canvas.getContext('2d');
+  this.c = this.canvas.getContext('2d');
 
   this.canvas.width = this.width;
   this.canvas.height = this.height;
@@ -58,6 +58,6 @@ Canvas.prototype.resizeCanvas_ = function(width, height) {
  * Clears the canvas
  * @return {undefined}
  */
-canvas.prototype.clearCanvas_ = function() {
+Canvas.prototype.clearCanvas_ = function() {
   this.canvas.width = this.width;
 }
