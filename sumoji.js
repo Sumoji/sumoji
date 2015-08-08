@@ -9,26 +9,34 @@ Player: {
 **/
 
 Players = new Mongo.Collection("players");
+Publishes = new Mongo.Collection("publishes");
 
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+  Meteor.subscribe("testing");
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+  var allPubs = Publishes.find({});
+  allPubs.observeChanges({
+    added: function(pub) {
+      // console.log(pub);
     }
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
 }
 
 if (Meteor.isServer) {
+  var date;
+  Meteor.setInterval(function() {
+    date = Date.now();
+    Publishes.insert({createdAt: date});
+  }, 2000)
+  Meteor.publish("testing", function() {
+    return Publishes.find({createdAt: date});
+  });
+  Meteor.publish("players", function(playerData) {
+    // create new player
+    Players.insert(playerData);
+  });
+
   Meteor.startup(function () {
     // code to run on server at startup
   });
