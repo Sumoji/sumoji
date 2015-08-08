@@ -11,17 +11,19 @@ if (Meteor.isClient) {
     // Matter.js module aliases
     var Engine = Matter.Engine,
         World = Matter.World,
-        Bodies = Matter.Bodies;
+        Bodies = Matter.Bodies,
+        MouseConstraint = Matter.MouseConstraint;
 
     // create a Matter.js engine
     var engine = Engine.create(document.body);
 
     // create two boxes and a ground
-    var boxA = Bodies.circle(30, 200, 80, {
+    var circA = Bodies.circle(30, 200, 80, {
+      density: .0005,
       render: {
         sprite: {
           strokeStyle: '#ffffff',
-          texture: '/img/fun.png'
+          texture: 'img/fun.png'
         }
       }
     });
@@ -29,8 +31,7 @@ if (Meteor.isClient) {
     var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
     // add all of the bodies to the world
-    World.add(engine.world, [boxA, boxB, ground]);
-
+    World.add(engine.world, [MouseConstraint.create(engine), circA, boxB, ground]);
     // run the engine
     Engine.run(engine);
   }
