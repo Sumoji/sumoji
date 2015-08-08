@@ -15,7 +15,7 @@ Canvas = function() {
  */
 Canvas.prototype.update = function(players) {
   this.clearCanvas_();
-  
+
   for (var i = 0; i < players.length; i++) {
     var player = players[i];
     var x = player.position[0];
@@ -58,6 +58,6 @@ Canvas.prototype.resizeCanvas_ = function(width, height) {
  * Clears the canvas
  * @return {undefined}
  */
-canvas.prototype.clearCanvas_ = function() {
+Canvas.prototype.clearCanvas_ = function() {
   this.canvas.width = this.width;
 }
