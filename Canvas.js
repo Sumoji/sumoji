@@ -1,7 +1,12 @@
-Canvas = function() {
+/**
+ * Selects the canvas and initializes width and height
+ * @param {optional Number} width  [width of the canvas]
+ * @param {optional Number} height [height of the canvas]
+ */
+Canvas = function(width, height) {
   this.canvas = document.getElementById('mainStage');
-  this.width = 300;
-  this.height = 300;
+  this.width = width ? width : 300;
+  this.height = height ? height : 300;
   this.c = this.canvas.getContext('2d');
 
   this.canvas.width = this.width;
