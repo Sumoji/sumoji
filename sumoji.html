@@ -1,13 +1,19 @@
 <head>
-  <title>Theta Deut Through the Years</title>
+  <title>SUMOJIIIII</title>
 </head>
 
 <body>
   <div class="container">
-    {{> hello}}
+    <div class="oob-area">
+      {{> sumoarena}}
+    </div>
   </div>
 </body>
 
-<template name="hello">
+<template name="sumoarena">
+  {{#unless currentUser}}
+    {{> loginButtons}}
+  {{/unless}}
   <canvas id="mainStage"></canvas>
+
 </template>
