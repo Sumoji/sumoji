@@ -12,7 +12,8 @@ Player: {
  * Object representing the game model
  */
 Game = function() {
-  this.maxSpeed = 200;
+  this.MAX_SPEED = 200;
+  this.FRICTION = 0.8;
 };
 
 /**
@@ -63,6 +64,10 @@ Game.prototype.shrink_ = function(player) {
  */
 Game.prototype.grow_ = function(player) {
   player.mass = player.mass*1.05;
+};
+
+Game.prototype.friction_ = function(player) {
+  player.velocity *= this.FRICTION;
 };
 
 /**
@@ -141,8 +146,21 @@ Game.prototype.update = function() {
     var pair = collisionPairs[i];
     this.collide_(pair[0], pair[1]);
   }
-  for (var i = 0; i < allPlayers.length; i++) {
 
+  var counter = 0;
+  for (var i = 0; i < allPlayers.length; i++) {
+    var player = allPlayers[i];
+    this.friction_(player);
+    this.translatePlayer_(player);
+    Players.update({_id: player._id},
+      {$set: player},
+      function(err, num) {
+        counter++;
+        if (counter == allPlayers.length) {
+          // do a batch update
+        }
+      }
+    );
   }
 };
 
