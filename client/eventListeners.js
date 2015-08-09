@@ -23,7 +23,9 @@ Template.connect.events({
 
     canvas = new Canvas();
     Meteor.call('startGameClock');
-    var position = [canvas.width / 2, canvas.height / 2];
+    var startX = canvas.width / 2 + Math.random() * 500 - 250;
+    var startY = canvas.height / 2 + Math.random() * 300 - 150;
+    var position = [startX, startY];
     var velocity = [0, 0];
 
     var newPlayer = {
