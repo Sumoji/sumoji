@@ -19,6 +19,7 @@ Canvas = function(width, height) {
  * @return {undefined}
  */
 Canvas.prototype.update = function(players) {
+  console.log("canvas.update called", players);
   this.clearCanvas_();
 
   for (var i = 0; i < players.length; i++) {

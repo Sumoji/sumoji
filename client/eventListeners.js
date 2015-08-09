@@ -24,20 +24,25 @@ Template.connect.events({
     var emoji = evt.target[1].value;
 
     canvas = new Canvas();
-    console.log("canvas in event listener", canvas);
+    var position = [canvas.width / 2, canvas.height / 2];
+    var velocity = [0, 0];
+    Meteor.call('startGameClock');
 
-    var Player = {
+    var newPlayer = {
       username: username,
       emoji: emoji,
       mass: 10,
-      position: [canvas.width / 2, canvas.height / 2],
-      velocity: [0,0]
+      position: position,
+      velocity: velocity
     };
 
-    var uid = Players.insert(Player);
+    console.log("player pre-save:", newPlayer);
+    var uid = Players.insert(newPlayer);
+    var after = Players.find({_id: uid}).fetch()[0];
+    console.log("player post-save:", after);
+
 
     Session.set('playerId', uid);
-
     evt.target.remove();
   }
 });

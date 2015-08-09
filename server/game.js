@@ -4,6 +4,7 @@
 Game = function() {
   this.MAX_SPEED = 200;
   this.FRICTION = 0.8;
+  this.isRunning = false;
 };
 
 /**
@@ -90,8 +91,8 @@ Game.prototype.isColliding_ = function(player1, player2) {
   var r1 = player1.mass / 2;
   var r2 = player2.mass / 2;
 
-  var distanceBtwn = Math.pow(p1[0] - p2[0], 2) + math.pow(p1[1] - p2[1], 2);
-  var collisionDist = Math.pow(r1, 2) + math.pow(r2, 2);
+  var distanceBtwn = Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2);
+  var collisionDist = Math.pow(r1, 2) + Math.pow(r2, 2);
 
   return distanceBtwn <= collisionDist;
 };
@@ -150,6 +151,7 @@ Game.prototype.collide_ = function(player1, player2) {
 };
 
 Game.prototype.update = function() {
+  console.log("game.update called");
   var allPlayers = Players.find().fetch();
   var collisionPairs = this.collidingPlayers_(allPlayers);
   for (var i = 0; i < collisionPairs.length; i++) {
@@ -182,7 +184,15 @@ Meteor.methods({
     game.applyClick(playerID, x, y);
   },
 
-  checkGameState: function() {
-
+  startGameClock: function() {
+    console.log(game);
+    if (!game.isRunning) {
+      game.isRunning = true;
+      Meteor.setInterval(function() {game.update()}, 100);
+    }
   }
 });
+
+
+
+
