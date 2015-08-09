@@ -26,8 +26,11 @@ Game.prototype.translatePlayer_ = function(player) {
 Game.prototype.applyClick = function(playerID, x, y) {
   // move object with position vector v1 along unit vector v2 by moveSpeed:
   // v1.translate(v2.multiplyByScalar(moveSpeed));
-  var player = Players.find({_id : playerID});
+  var player = Players.find({_id : playerID}).fetch()[0];
   var mousePoint = [x, y];
+  console.log("asdfsadfasdfasdfasdf");
+  console.log(playerID);
+  console.log(player);
   var posPoint = [player.position[0], player.position[1]];
   var inputVelocity = vectorSub(mousePoint, posPoint);
 

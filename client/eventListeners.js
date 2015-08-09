@@ -1,3 +1,5 @@
+canvas = null;
+
 Template.sumoarena.events({
   'mousedown canvas, mousemove canvas': function(evt) {
     if (evt.which != 1) {
@@ -22,13 +24,14 @@ Template.connect.events({
     var emoji = evt.target[1].value;
 
     canvas = new Canvas();
+    console.log("canvas in event listener", canvas);
 
     var Player = {
       username: username,
       emoji: emoji,
       mass: 10,
-      speed: 0,
-      position: [canvas.width / 2, canvas.height / 2]
+      position: [canvas.width / 2, canvas.height / 2],
+      velocity: [0,0]
     };
 
     var uid = Players.insert(Player);
