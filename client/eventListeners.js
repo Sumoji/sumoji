@@ -1,6 +1,7 @@
-Template.sumoarena.events({
-  'mousedown canvas, mousemove canvas': function(evt) {
-    if (evt.which != 1) {
+var mousedownInterval = null;
+
+var playerInput = function(evt) {
+  if (evt.which != 1) {
       return;
     }
 
@@ -12,6 +13,26 @@ Template.sumoarena.events({
     var newY = evt.clientY - canvas.offsetTop;
 
     Meteor.call('applyClick', player, newX, newY);
+};
+
+Template.sumoarena.events({
+  'mousedown canvas, mousemove canvas': function(evt) {
+    playerInput(evt);
+
+    if (mousedownInterval) {
+      Meteor.clearInterval(mousedownInterval)
+    }
+
+    mousedownInterval = Meteor.setInterval(function() {
+      playerInput(evt);
+    }, 33);
+
+  }
+});
+
+Template.body.events({
+  'mouseup': function(evt) {
+    Meteor.clearInterval(mousedownInterval);
   }
 });
 

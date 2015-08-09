@@ -38,3 +38,10 @@ canvas {
   margin: auto;
   visibility: hidden;
 }
+
+body {
+  background-image: url('/resources/bg.jpg');
+  background-repeat: 'repeat';
+  background-size: 150px;
+}
+
