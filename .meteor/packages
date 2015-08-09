@@ -8,6 +8,3 @@ meteor-platform
 autopublish
 insecure
 uzumaxy:matter
-accounts-ui
-accounts-password
-accounts-base
