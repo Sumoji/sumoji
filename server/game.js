@@ -152,7 +152,7 @@ Game.prototype.update = function() {
       function(err, num) {
         counter++;
         if (counter == allPlayers.length) {
-          // do a batch update
+          Updates.insert({createdAt: Date.now()});
         }
       }
     );
@@ -163,7 +163,7 @@ Game.prototype.update = function() {
 var game = new Game();
 
 Meteor.methods({
-  movePlayer: function(playerID, x, y) {
+  applyClick: function(playerID, x, y) {
     game.applyClick(playerID, x, y);
   },
 

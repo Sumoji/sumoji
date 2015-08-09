@@ -25,7 +25,7 @@ Canvas.prototype.update = function(players) {
     var player = players[i];
     var x = player.position[0];
     var y = player.position[1];
-    this.drawEmoji_(player.emoji, player.diameter, x, y);
+    this.drawEmoji_(player.emoji, player.mass, x, y);
   }
 };
 
@@ -46,7 +46,6 @@ Canvas.prototype.drawEmoji_ = function(emoji, name, diameter, x, y) {
   c.fillText(emoji, x, y);
   c.font = '10px Courier New';
   c.fillText(name,x,y+diameter/2);
-  console.log(emoji);
 };
 
 /**

@@ -3,6 +3,7 @@ Meteor.subscribe('playerPositions');
 var playersQuery = Players.find({});
 // array - is this reactive?
 
+// this should probably be deleted
 playersQuery.observeChanges({
   added: function(id, fields) {
     var playerObjects = playersQuery.fetch();
@@ -14,5 +15,14 @@ playersQuery.observeChanges({
       var playerObjects = playersQuery.fetch();
       canvas.update(playerObjects);
     }
+  }
+});
+
+var updatesQuery = Updates.find({});
+
+updatesQuery.observeChanges({
+  added: function(id, fields) {
+    var playerObjects = playersQuery.fetch();
+    canvas.update(playerObjects);
   }
 });
