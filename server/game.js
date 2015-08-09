@@ -13,8 +13,8 @@ Game = function() {
  * @return {endefined}
  */
 Game.prototype.translatePlayer_ = function(player) {
-  player.position[0] = player.position[0] + player.velocity.x;
-  player.position[1] = player.position[1] + player.velocity.y;
+  player.position[0] = player.position[0] + player.velocity[0];
+  player.position[1] = player.position[1] + player.velocity[1];
 };
 
 /**
@@ -60,7 +60,8 @@ Game.prototype.grow_ = function(player) {
 };
 
 Game.prototype.friction_ = function(player) {
-  player.velocity *= this.FRICTION;
+  player.velocity[0] = player.velocity[0] * this.FRICTION;
+  player.velocity[1] = player.velocity[1] * this.FRICTION;
 };
 
 /**
