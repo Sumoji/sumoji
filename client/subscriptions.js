@@ -4,7 +4,9 @@ var updatesQuery = Updates.find({});
 
 updatesQuery.observeChanges({
   added: function(id, fields) {
-    var playerObjects = Players.find({}).fetch();
-    canvas.update(playerObjects);
+    if (canvas) {
+      var playerObjects = Players.find({}).fetch();
+      canvas.update(playerObjects);
+    }
   }
 });
