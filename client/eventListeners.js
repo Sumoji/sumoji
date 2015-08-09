@@ -24,5 +24,7 @@ Template.connect.events({
     var uid = Players.insert(Player);
 
     Session.set('playerId', uid);
+
+    evt.target.remove();
   }
 });
