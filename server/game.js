@@ -175,7 +175,7 @@ Game.prototype.update = function() {
 var game = new Game();
 
 Meteor.methods({
-  movePlayer: function(playerID, x, y) {
+  applyClick: function(playerID, x, y) {
     game.applyClick(playerID, x, y);
   },
 

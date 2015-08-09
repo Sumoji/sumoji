@@ -1,5 +1,5 @@
 Template.sumoarena.events({
-  'click canvas': function(evt) {
+  'mousedown canvas, drag canvas': function(evt) {
     player = Session.get('playerId') || 'hello';
     // x and y coords need to be in reference to canvas, not client
     var canvas = document.getElementById("mainStage");
@@ -7,7 +7,7 @@ Template.sumoarena.events({
     var newX = evt.clientX - canvas.offsetLeft;
     var newY = evt.clientY - canvas.offsetTop;
 
-    Meteor.call('movePlayer', player, newX, newY);
+    Meteor.call('applyClick', player, newX, newY);
   }
 });
 
