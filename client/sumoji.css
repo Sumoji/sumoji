@@ -25,8 +25,8 @@ canvas {
 }
 
 #suchpoop {
-  width: 20px;
-  height: 20px;
+  width: 800px;
+  height: 700px;
 
   position: absolute;
   top:0;
@@ -34,6 +34,7 @@ canvas {
   left: 0;
   right: 0;
   z-index: 9001;
+  font-size: 127px;
 
   margin: auto;
   visibility: hidden;

@@ -17,14 +17,14 @@ playerQ.observeChanges({
   removed: function(losingPlayer) {
     if (canvas && losingPlayer == Session.get('playerId')) {
       $( "#suchpoop" ).css('visibility', 'visible');
-      $( "#suchpoop" ).animate({
-        width: "70%",
-        opacity: 0.4,
-        marginLeft: "0.6in",
-        fontSize: "3em",
-        borderWidth: "10px"
-      }, 1500 );
-      $( "#suchpoop" ).css('visibility', 'hidden');
+      // $( "#suchpoop" ).animate({
+      //   width: "70%",
+      //   opacity: 0.4,
+      //   marginLeft: "0.6in",
+      //   fontSize: "3em",
+      //   borderWidth: "10px"
+      // }, 1500 );
+      console.log('hjasdf');
     }
   }
 });
