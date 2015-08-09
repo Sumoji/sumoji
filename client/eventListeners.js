@@ -36,12 +36,7 @@ Template.connect.events({
       velocity: velocity
     };
 
-    console.log("player pre-save:", newPlayer);
     var uid = Players.insert(newPlayer);
-    var after = Players.find({_id: uid}).fetch()[0];
-    console.log("player post-save:", after);
-
-
     Session.set('playerId', uid);
     evt.target.remove();
   }
