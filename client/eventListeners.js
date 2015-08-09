@@ -5,7 +5,7 @@ Template.sumoarena.events({
     }
 
     player = Session.get('playerId') || 'hello';
-    // x and y coords need to be in reference to canvas, not client
+
     var canvas = document.getElementById("mainStage");
 
     var newX = evt.clientX - canvas.offsetLeft;
