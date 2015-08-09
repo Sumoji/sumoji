@@ -19,3 +19,7 @@
   margin: auto;
   z-index: 20;
 }
+
+canvas {
+  background: url('http://s17.postimg.org/9rv98rlhb/sumooooo.png');
+}
