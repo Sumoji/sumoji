@@ -79,12 +79,11 @@ Game.prototype.friction_ = function(player) {
 Game.prototype.inArena_ = function(player) {
   var x = player.position[0];
   var y = player.position[1];
-  var magicAsFuck = 191.61;
 
-  if (x < magicAsFuck ||
-      y < magicAsFuck ||
-      x > DEFAULT_CANVAS_WIDTH - magicAsFuck ||
-      y > DEFAULT_CANVAS_HEIGHT - magicAsFuck) {
+  if (x < sideOffset ||
+      y < topOffset ||
+      x > DEFAULT_CANVAS_WIDTH - sideOffset ||
+      y > DEFAULT_CANVAS_HEIGHT - topOffset) {
     return false;
   } else {
     return true;
@@ -185,8 +184,10 @@ Game.prototype.generatePowerUp = function() {
     width: 1200,
     height: 600
   };
-  var x = Math.floor(Math.random() * canvas.width);
-  var y = Math.floor(Math.random() * canvas.height);
+
+  // why would i ever leave a comment explaining these magic numbers
+  var x = Math.floor(Math.random() * (canvas.width - sideOffset - 60 - sideOffset)) + 40 + sideOffset;
+  var y = Math.floor(Math.random() * (canvas.height - topOffset - 60 - topOffset)) + 40 + topOffset;
 
   var grow = Math.random() > 0.5 ? 1 : 0;
   var emoji;
@@ -263,7 +264,7 @@ Meteor.methods({
       game.isRunning = true;
       Meteor.setInterval(function() {
         game.update();
-        if (Math.random() < 0.01) {
+        if (Math.random() < 0.04) {
           game.generatePowerUp();
         }
       }, 100);
