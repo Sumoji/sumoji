@@ -1,2 +1,2 @@
-# tdcrispy
-through the years - house blueprint (Meteor Hackathon 2015)
+# SUMOJI!!!!
+through the years - sumo emoji's (Meteor Hackathon 2015)
