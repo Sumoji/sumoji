@@ -1,7 +1,7 @@
 Meteor.subscribe('playerPositions');
 
 var updatesQuery = Updates.find({});
-var playerQ = Players.find({_id: Session.get('playerId')});
+var playerQ = Players.find({});
 
 updatesQuery.observeChanges({
   changed: function(id, fields) {
@@ -14,9 +14,8 @@ updatesQuery.observeChanges({
 });
 
 playerQ.observeChanges({
-  removed: function(oldDoc) {
-    console.log('dawg');
-    if (canvas) {
+  removed: function(losingPlayer) {
+    if (canvas && losingPlayer == Session.get('playerId')) {
       $( "#suchpoop" ).css('visibility', 'visible');
       $( "#suchpoop" ).animate({
         width: "70%",
