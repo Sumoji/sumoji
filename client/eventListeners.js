@@ -4,7 +4,7 @@ Template.sumoarena.events({
       return;
     }
 
-    player = Session.get('playerId') || 'hello';
+    player = Session.get('playerId');
 
     var canvas = document.getElementById("mainStage");
 
