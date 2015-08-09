@@ -3,7 +3,7 @@ Player: {
   username: String username
   emoji: String? which emoji avatar to use
   mass: Number current size
-  speed: Number current speed
+  velocity: Number current velocity
   position: [Number, Number] current xy-coordinates
 }
 **/
@@ -36,10 +36,10 @@ Meteor.methods({
 
   },
   movePlayer: function(player, x, y) {
-    // move object with position vector v1 along vector v2 by moveSpeed:
+    // move object with position vector v1 along unit vector v2 by moveSpeed:
     // v1.translate(v2.multiplyByScalar(moveSpeed));
-    var speedVect = null;
-    player.translate()
+    var speedVect = somefuckingvector.multiplyByScalar();
+    player.translate();
   },
   isColliding: function(player1, player2) {
 
