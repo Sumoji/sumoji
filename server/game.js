@@ -164,7 +164,7 @@ Game.prototype.update = function() {
       function(err, num) {
         counter++;
         if (counter == allPlayers.length) {
-          // do a batch update
+          Updates.insert({createdAt: Date.now()});
         }
       }
     );
