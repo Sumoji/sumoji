@@ -16,13 +16,19 @@
 </template>
 
 <template name="connect">
-  <form>
-     Username: <input type="text" name="username">
-    <select name="emoji">
-      {{#each emojis}}
-        <option value={{this}}>{{this}}</option>
-      {{/each}}
-    </select>
-    <input type="submit" value="SUMOJI!!">
-  </form>
+  <div id="bottomWrapper">
+    <img src="https://33.media.tumblr.com/07106512835c07d2a237a4d12479c7f8/tumblr_mpg5arui7E1s1clzao1_250.gif">
+    <div>
+      <form>
+         Username: <input type="text" name="username">
+        <select name="emoji">
+          {{#each emojis}}
+            <option value={{this}}>{{this}}</option>
+          {{/each}}
+        </select>
+        <input type="submit" value="SUMOJI!!">
+      </form>
+    </div>
+    <img src="https://33.media.tumblr.com/07106512835c07d2a237a4d12479c7f8/tumblr_mpg5arui7E1s1clzao1_250.gif">
+  </div>
 </template>
