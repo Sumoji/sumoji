@@ -54,7 +54,7 @@ Game.prototype.isColliding_ = function(player1, player2) {
   var distanceBtwn = math.pow(p1[0] - p2[0], 2) + math.pow(p1[1] - p2[1], 2);
   var collisionDist = math.pow(r1, 2) + math.pow(r2, 2);
 
-  return distanceBtwn < distanceBtwn;
+  return distanceBtwn <= collisionDist;
 }
 
 Game.prototype.collidingPlayers_ = function(players) {
@@ -91,8 +91,16 @@ Game.prototype.collide_ = function(pID1, pID2) {
   return;
 }
 
-Game.prototype.update = function(playerID) {
+Game.prototype.update = function() {
+  var allPlayers = Players.find().fetch();
+  var collisionPairs = this.collidingPlayers_(allPlayers);
+  for (var i = 0; i < collisionPairs.length; i++) {
+    var pair = collisionPairs[i];
+    this.collide_(pair[0], pair[1]);
+  }
+  for (var i = 0; i < allPlayers.length; i++) {
 
+  }
 }
 
 
@@ -101,7 +109,7 @@ var game = new Game();
 Meteor.methods({
   movePlayer: function(playerID, x, y) {
     game.applyClick(playerID, x, y);
-  }
+  },
 
   checkGameState: function() {
 
