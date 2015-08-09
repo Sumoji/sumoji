@@ -2,7 +2,7 @@
  * Object representing the game model
  */
 Game = function() {
-  this.MAX_SPEED = 200;
+  this.MAX_SPEED = 5;
   this.FRICTION = 0.8;
   this.isRunning = false;
 };
@@ -30,6 +30,10 @@ Game.prototype.applyClick = function(playerID, x, y) {
   var player = Players.find({_id : playerID}).fetch()[0];
   var mousePoint = [x, y];
   var inputVelocity = vectorSub(mousePoint, player.position);
+  if (vectorMag(inputVelocity) > this.MAX_SPEED) {
+    inputVelocity = vectorScalarMult(inputVelocity, 1/vectorMag(inputVelocity));
+    inputVelocity = vectorScalarMult(inputVelocity, this.MAX_SPEED);
+  }
 
   // inputVelocity = (inputVelocity / inputVelocity.length) * 10;
   var nextVelocity = vectorAdd(player.velocity, inputVelocity);
@@ -85,8 +89,8 @@ Game.prototype.inArena_ = function(player) {
 Game.prototype.isColliding_ = function(player1, player2) {
   var p1 = player1.position;
   var p2 = player2.position;
-  var r1 = player1.mass / 2;
-  var r2 = player2.mass / 2;
+  var r1 = player1.mass * .75;
+  var r2 = player2.mass * .75;
 
   var distanceBtwn = Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2);
   var collisionDist = Math.pow(r1, 2) + Math.pow(r2, 2);
@@ -128,7 +132,7 @@ Game.prototype.collide_ = function(player1, player2) {
   m1 = player1.mass;
   m2 = player2.mass;
   dotProd = vectorDot(vectorSub(v1, v2), vectorSub(x1, x2));
-  massConst = ((2*m2)/(m1 + m2));
+  massConst = 2 * ((2*m2)/(m1 + m2));
   player1.velocity =
     vectorSub(v1,
       vectorScalarMult(vectorSub(x1, x2),
@@ -137,7 +141,7 @@ Game.prototype.collide_ = function(player1, player2) {
       )
     );
   dotProd = vectorDot(vectorSub(v2, v1), vectorSub(x2, x1));
-  massConst = ((2*m1)/(m1 + m2));
+  massConst = 2 * ((2*m1)/(m1 + m2));
   player2.velocity =
     vectorSub(v2,
       vectorScalarMult(vectorSub(x2, x1),
@@ -166,7 +170,7 @@ Game.prototype.update = function() {
       function(err, num) {
         counter++;
         if (counter == allPlayers.length) {
-          Updates.insert({createdAt: Date.now()});
+          var x = Updates.update({createdAt: {$exists: true}}, {$set: {createdAt: Date.now()}}, {upsert: true});
         }
       }
     );

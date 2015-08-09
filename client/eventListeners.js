@@ -29,7 +29,7 @@ Template.connect.events({
     var newPlayer = {
       username: username,
       emoji: emoji,
-      mass: 10,
+      mass: 50,
       position: position,
       velocity: velocity
     };
