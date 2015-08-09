@@ -76,7 +76,14 @@ Game.prototype.friction_ = function(player) {
  * @return {Boolean}       [Whether or not the given player is in the arena]
  */
 Game.prototype.inArena_ = function(player) {
+  var x = player.position[0];
+  var y = player.position[1];
 
+  if (x < 0 || y < 0 || x > 1200 || y > 600) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 /**
@@ -168,7 +175,7 @@ Game.prototype.update = function() {
 var game = new Game();
 
 Meteor.methods({
-  movePlayer: function(playerID, x, y) {
+  applyClick: function(playerID, x, y) {
     game.applyClick(playerID, x, y);
   },
 
