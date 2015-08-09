@@ -19,11 +19,14 @@ Template.sumoarena.events({
   'mousedown canvas, mousemove canvas': function(evt) {
     playerInput(evt);
 
-    if (evt.type == 'mousedown') {
-      mousedownInterval = Meteor.setInterval(function() {
-        playerInput(evt);
-      }, 100);
+    if (mousedownInterval) {
+      Meteor.clearInterval(mousedownInterval)
     }
+
+    mousedownInterval = Meteor.setInterval(function() {
+      playerInput(evt);
+    }, 33);
+
   }
 });
 
