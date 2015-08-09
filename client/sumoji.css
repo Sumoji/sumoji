@@ -23,3 +23,9 @@
 canvas {
   background: url('http://s13.postimg.org/y3sqbchiv/sumooooo.png');
 }
+
+body {
+  background-image: url('/resources/bg.jpg');
+  background-repeat: 'repeat';
+  background-size: 150px;
+}
