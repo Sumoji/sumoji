@@ -23,8 +23,6 @@ var updatesQuery = Updates.find({});
 updatesQuery.observeChanges({
   added: function(id, fields) {
     var playerObjects = playersQuery.fetch();
-    console.log(playerObjects);
-    console.log("canvas in subscription", canvas);
     canvas.update(playerObjects);
   }
 });

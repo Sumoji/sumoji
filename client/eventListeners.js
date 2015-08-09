@@ -24,7 +24,6 @@ Template.connect.events({
     var emoji = evt.target[1].value;
 
     canvas = new Canvas();
-    console.log("canvas in event listener", canvas);
 
     var Player = {
       username: username,
