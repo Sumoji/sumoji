@@ -28,6 +28,11 @@ Game.prototype.applyClick = function(playerID, x, y) {
   // move object with position vector v1 along unit vector v2 by moveSpeed:
   // v1.translate(v2.multiplyByScalar(moveSpeed));
   var player = Players.find({_id : playerID}).fetch()[0];
+
+  if (player == undefined) {
+    return;
+  }
+
   var mousePoint = [x, y];
   var inputVelocity = vectorSub(mousePoint, player.position);
   if (vectorMag(inputVelocity) > this.MAX_SPEED) {
@@ -73,7 +78,10 @@ Game.prototype.inArena_ = function(player) {
   var x = player.position[0];
   var y = player.position[1];
 
-  if (x < 0 || y < 0 || x > 1200 || y > 600) {
+  if (x < 0 ||
+      y < 0 ||
+      x > DEFAULT_CANVAS_WIDTH ||
+      y > DEFAULT_CANVAS_HEIGHT) {
     return false;
   } else {
     return true;
@@ -153,27 +161,44 @@ Game.prototype.collide_ = function(player1, player2) {
 
 Game.prototype.update = function() {
   var allPlayers = Players.find().fetch();
+
   var collisionPairs = this.collidingPlayers_(allPlayers);
+
   for (var i = 0; i < collisionPairs.length; i++) {
     var pair = collisionPairs[i];
     this.collide_(pair[0], pair[1]);
   }
 
   var counter = 0;
+
   for (var i = 0; i < allPlayers.length; i++) {
     var player = allPlayers[i];
     this.friction_(player);
     this.translatePlayer_(player);
-    Players.update(
-      {_id: player._id},
-      {$set: player},
-      function(err, num) {
-        counter++;
-        if (counter == allPlayers.length) {
-          var x = Updates.update({createdAt: {$exists: true}}, {$set: {createdAt: Date.now()}}, {upsert: true});
+
+    if (this.inArena_(player)) {
+      Players.update(
+        {_id: player._id},
+        {$set: player},
+        function(err, num) {
+          counter++;
+
+          if (counter == allPlayers.length) {
+            var x = Updates.update({createdAt: {$exists: true}},
+              {$set: {createdAt: Date.now()}}, {upsert: true});
+          }
         }
-      }
-    );
+      );
+    } else {
+      Players.remove(player._id, function(err,num) {
+        counter++;
+
+        if (counter == allPlayers.length) {
+          var x = Updates.update({createdAt: {$exists: true}},
+            {$set: {createdAt: Date.now()}}, {upsert: true});
+        }
+      });
+    }
   }
 };
 
