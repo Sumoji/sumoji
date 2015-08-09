@@ -24,9 +24,12 @@ Template.connect.events({
     var emoji = evt.target[1].value;
 
     canvas = new Canvas();
+<<<<<<< HEAD
+=======
     var position = [canvas.width / 2, canvas.height / 2];
     var velocity = [0, 0];
     Meteor.call('startGameClock');
+>>>>>>> 7249cdadcc4df055133a4318224ec96110285602
 
     var newPlayer = {
       username: username,
