@@ -59,6 +59,6 @@ Template.connect.events({
 
     var uid = Players.insert(newPlayer);
     Session.set('playerId', uid);
-    document.getElementById('bottomWrapper').remove();
+    evt.target.remove();
   }
 });

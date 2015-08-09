@@ -16,8 +16,9 @@ Game = function() {
  * @return {endefined}
  */
 Game.prototype.translatePlayer_ = function(player) {
-  player.position[0] = player.position[0] + player.velocity[0];
-  player.position[1] = player.position[1] + player.velocity[1];
+  player.position =
+    [player.position[0] + player.velocity[0],
+      player.position[1] + player.velocity[1]];
 };
 
 /**
@@ -231,7 +232,6 @@ Game.prototype.update = function() {
     var player = allPlayers[i];
     this.friction_(player);
     this.translatePlayer_(player);
-
     if (this.inArena_(player)) {
       Players.update(
         {_id: player._id},
