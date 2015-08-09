@@ -179,6 +179,10 @@ Game.prototype.collide_ = function(player1, player2) {
     );
 };
 
+Game.prototype.losingAnimation_ = function() {
+
+}
+
 Game.prototype.generatePowerUp = function() {
   var canvas = {
     width: 1200,
@@ -248,6 +252,7 @@ Game.prototype.update = function() {
             {$set: {createdAt: Date.now()}}, {upsert: true});
         }
       });
+      this.losingAnimation_();
     }
   }
 };
