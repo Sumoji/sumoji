@@ -1,5 +1,9 @@
 Template.sumoarena.events({
-  'mousedown canvas, drag canvas': function(evt) {
+  'mousedown canvas, mousemove canvas': function(evt) {
+    if (evt.which != 1) {
+      return;
+    }
+
     player = Session.get('playerId') || 'hello';
     // x and y coords need to be in reference to canvas, not client
     var canvas = document.getElementById("mainStage");
