@@ -69,3 +69,5 @@ Canvas.prototype.resizeCanvas_ = function(width, height) {
 Canvas.prototype.clearCanvas_ = function() {
   this.canvas.width = this.width;
 }
+
+
