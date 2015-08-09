@@ -18,11 +18,12 @@
 
 <template name="connect">
   <form>
-    Username: <input type="text" name="username">
+     Username: <input type="text" name="username">
     <select name="emoji">
       {{#each emojis}}
         <option value={{this}}>{{this}}</option>
       {{/each}}
     </select>
+    <input type="submit" value="SUMOJI!!">
   </form>
 </template>
