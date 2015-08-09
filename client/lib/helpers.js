@@ -27,7 +27,3 @@ Meteor.setInterval(function() {
     diff = 5;
   }
 },50);
-
-// Meteor.setInterval(function() {
-//   $('body').css('background-size', '150px');
-// },500);
