@@ -162,7 +162,8 @@ Game.prototype.update = function() {
     var player = allPlayers[i];
     this.friction_(player);
     this.translatePlayer_(player);
-    Players.update({_id: player._id},
+    Players.update(
+      {_id: player._id},
       {$set: player},
       function(err, num) {
         counter++;
