@@ -1,14 +1,4 @@
 /**
-Player: {
-  username: String username
-  emoji: String? which emoji avatar to use
-  mass: Number current size
-  velocity: Number current velocity
-  position: [Number, Number] current xy-coordinates
-}
-**/
-
-/**
  * Object representing the game model
  */
 Game = function() {
@@ -37,13 +27,12 @@ Game.prototype.applyClick = function(playerID, x, y) {
   // move object with position vector v1 along unit vector v2 by moveSpeed:
   // v1.translate(v2.multiplyByScalar(moveSpeed));
   var player = Players.find({_id : playerID});
-
-  var mousePoint = new Point(x, y);
-  var posPoint = new Point(player.position[0], player.position[1]);
-  var inputVelocity = mousePoint - posPoint;
+  var mousePoint = [x, y];
+  var posPoint = [player.position[0], player.position[1]];
+  var inputVelocity = vectorSub(mousePoint, posPoint);
 
   // inputVelocity = (inputVelocity / inputVelocity.length) * 10;
-  var nextVelocity = player.velocity + inputVelocity;
+  var nextVelocity = vectorAdd(player.velocity, inputVelocity);
 
   Players.update({_id: player._id}, {$set: {velocity: nextVelocity}});
 };
@@ -88,8 +77,8 @@ Game.prototype.inArena_ = function(player) {
 
 /**
  * Determines whether or not the player is colliding with the other player
- * @param  {[type]}  player1 [Player in question]
- * @param  {[type]}  player2 [Other player in question]
+ * @param  {Player}  player1 [Player in question]
+ * @param  {Player}  player2 [Other player in question]
  * @return {Boolean}         [whether or not the two are colliding]
  */
 Game.prototype.isColliding_ = function(player1, player2) {
@@ -137,8 +126,7 @@ Game.prototype.collide_ = function(player1, player2) {
   x2 = player2.position;
   m1 = player1.mass;
   m2 = player2.mass;
-  dotProd = (v1 - v2).dot(x1 - x2);
-  // TODO: Math.pow might be wrong, .
+  dotProd = vectorDot(vectorSub(v1, v2), vectorSub(x1, x2));
   player1.velocity = v1 - ((2*m2)/(m1 + m2)) *
     (dotProd/normalize(Math.pow(x1 - x2, 2))) * (x1 - x2);
   dotProd = (v2 - v1).dot(x2 - x1);
