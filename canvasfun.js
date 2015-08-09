@@ -2,34 +2,6 @@ if (Meteor.isClient) {
 
   Template.sumoarena.rendered = function() {
     // Matter.js module aliases
-    // var Engine = Matter.Engine,
-    //     World = Matter.World,
-    //     Bodies = Matter.Bodies,
-    //     MouseConstraint = Matter.MouseConstraint;
-
-    // // create a Matter.js engine
-    // var engine = Engine.create(document.body);
-
-    // // create two boxes and a ground
-    // var circA = Bodies.circle(30, 200, 80, {
-    //   density: .0005,
-    //   render: {
-    //     sprite: {
-    //       strokeStyle: '#ffffff',
-    //       texture: 'img/fun.png'
-    //     }
-    //   }
-    // });
-    // var boxB = Bodies.rectangle(450, 50, 80, 80);
-    // var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
-    // var mouse = MouseConstraint.create(engine, {
-
-    // });
-
-    // // add all of the bodies to the world
-    // World.add(engine.world, [mouse, circA, boxB, ground]);
-    // // run the engine
-    // Engine.run(engine);
 
     var Engine = Matter.Engine,
     World = Matter.World,
@@ -39,14 +11,14 @@ if (Meteor.isClient) {
     MouseConstraint = Matter.MouseConstraint,
     Events = Matter.Events;
 
-// var engine = Engine.create(document.body, {
-//     render: {
-//         options: {
-//             background: 'http://www.robotroom.com/Sumo-Circle/SumoCMRing.jpg',
-//             wireframes: false
-//         }
-//     }
-// });
+var engine = Engine.create(document.body, {
+    render: {
+        options: {
+            background: 'http://www.robotroom.com/Sumo-Circle/SumoCMRing.jpg',
+            wireframes: false
+        }
+    }
+});
 
 engine.world.gravity.y = 0;
 
@@ -97,7 +69,7 @@ var pyramid2 = Composites.pyramid(550, 0, 5, 10, 0, 0, function(x, y, column, ro
     });
 });
 
-World.add(engine.world, [mouse, ground, pyramid, ground2, pyramid2, rock, elastic]);
+World.add(engine.world, [mouse, ground, pyramid, pyramid2, rock, elastic]);
 
 Events.on(engine, 'tick', function(event) {
     if (engine.input.mouse.button === -1 && (rock.position.x > 190 || rock.position.y < 430)) {
