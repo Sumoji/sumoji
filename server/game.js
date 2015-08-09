@@ -79,11 +79,12 @@ Game.prototype.friction_ = function(player) {
 Game.prototype.inArena_ = function(player) {
   var x = player.position[0];
   var y = player.position[1];
+  var magicAsFuck = 191.61;
 
-  if (x < 0 ||
-      y < 0 ||
-      x > DEFAULT_CANVAS_WIDTH ||
-      y > DEFAULT_CANVAS_HEIGHT) {
+  if (x < magicAsFuck ||
+      y < magicAsFuck ||
+      x > DEFAULT_CANVAS_WIDTH - magicAsFuck ||
+      y > DEFAULT_CANVAS_HEIGHT - magicAsFuck) {
     return false;
   } else {
     return true;
