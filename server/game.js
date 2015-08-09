@@ -98,7 +98,18 @@ Game.prototype.isColliding_ = function(player1, player2) {
  * @return {Array<Array<Player>>}  [Tuple arrays of colliding players]
  */
 Game.prototype.collidingPlayers_ = function(players) {
-  
+  var results = [];
+  for (var i = 0; i < players.length; i++) {
+    var p1 = players[i];
+    for (var j = i + 1; j < players.length; j++) {
+      var p2 = players[j];
+      if (this.isColliding_(p1, p2)) {
+        results.push([p1, p2]);
+      }
+    }
+  }
+
+  return results;
 };
 
 /**
