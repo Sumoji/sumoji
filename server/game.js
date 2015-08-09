@@ -38,7 +38,7 @@ Meteor.methods({
   movePlayer: function(player, x, y) {
     // move object with position vector v1 along vector v2 by moveSpeed:
     // v1.translate(v2.multiplyByScalar(moveSpeed));
-    var speedVect =
+    var speedVect = null;
     player.translate()
   },
   isColliding: function(player1, player2) {
