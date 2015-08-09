@@ -2,8 +2,9 @@
  * Object representing the game model
  */
 Game = function() {
-  this.MAX_SPEED = 5;
-  this.FRICTION = 0.8;
+  this.MAX_SPEED = 200;
+  this.FRICTION = 0.7;
+  this.MAX_POWERUPS = 15;
   this.isRunning = false;
   this.growEmojis = ["🍪", "🍕", "🍎"];
   this.shrinkEmojis = ["🐍", "🐝", "👻"];
@@ -41,6 +42,8 @@ Game.prototype.applyClick = function(playerID, x, y) {
     inputVelocity = vectorScalarMult(inputVelocity, 1/vectorMag(inputVelocity));
     inputVelocity = vectorScalarMult(inputVelocity, this.MAX_SPEED);
   }
+  inputVelocity = vectorScalarMult(inputVelocity, 1/vectorMag(inputVelocity));
+  inputVelocity = vectorScalarMult(inputVelocity, Math.sqrt(vectorMag(inputVelocity)));
 
   // inputVelocity = (inputVelocity / inputVelocity.length) * 10;
   var nextVelocity = vectorAdd(player.velocity, inputVelocity);
@@ -180,6 +183,9 @@ Game.prototype.collide_ = function(player1, player2) {
 };
 
 Game.prototype.generatePowerUp = function() {
+  if (PowerUps.find().count() > this.MAX_POWERUPS) {
+    return;
+  }
   var canvas = {
     width: 1200,
     height: 600
