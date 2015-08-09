@@ -3,6 +3,7 @@
 </head>
 
 <body>
+  {{> connect}}
   {{> sumoarena}}
 </body>
 
@@ -13,4 +14,15 @@
     </div>
   {{/unless}}
   <canvas id="mainStage" style="border:1px solid" width="0" height="0"></canvas>
+</template>
+
+<template name="connect">
+  <form>
+    Username: <input type="text" name="username">
+    <select name="emoji">
+      {{#each emojis}}
+        <option value={{this}}>{{this}}</option>
+      {{/each}}
+    </select>
+  </form>
 </template>
