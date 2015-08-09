@@ -25,24 +25,28 @@ Canvas.prototype.update = function(players) {
     var player = players[i];
     var x = player.position[0];
     var y = player.position[1];
-    this.drawEmoji_(player.emoji, player.mass, x, y);
+    this.drawEmoji_(player.emoji, player.diameter, x, y);
   }
 };
 
 /**
  * Draws an emoji on the canvas
- * @param  {String} emoji [Emoji ID]
- * @param  {Number} mass  [Mass of the emoji]
- * @param  {Number} x     [x position]
- * @param  {Number} y     [y position]
+ * @param  {String} emoji     [Emoji ID]
+ * @param  {Number} diameter  [diameter of the emoji]
+ * @param  {Number} x         [x position]
+ * @param  {Number} y         [y position]
  * @return {undefined}
  */
-Canvas.prototype.drawEmoji_ = function(emoji, mass, x, y) {
+Canvas.prototype.drawEmoji_ = function(emoji, name, diameter, x, y) {
   var c = this.c;
 
   c.textBaseline = 'middle';
-  c.font = mass+'px Courier New';
-  c.fillText(emoji, x - mass / 2, y + mass / 5);
+  c.textAlign = 'center';
+  c.font = diameter+'px Courier New';
+  c.fillText(emoji, x, y);
+  c.font = '10px Courier New';
+  c.fillText(name,x,y+diameter/2);
+  console.log(emoji);
 };
 
 /**
