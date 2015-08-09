@@ -270,10 +270,10 @@ Meteor.methods({
       game.isRunning = true;
       Meteor.setInterval(function() {
         game.update();
-        if (Math.random() < 0.04) {
+        if (Math.random() < 0.01) {
           game.generatePowerUp();
         }
-      }, 100);
+      }, 30);
     }
   }
 });
