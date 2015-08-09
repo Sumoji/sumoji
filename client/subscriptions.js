@@ -6,9 +6,12 @@ var playerObjects = playersQuery.fetch();
 
 playersQuery.observeChanges({
   added: function(id, fields) {
-    // Canvas.update(playerObjects);
+    canvas.update(playerObjects);
   },
   changed: function(id, fields) {
-    // Canvas.update(playerObjects);
+    // only re-render if the position has changed
+    if (fields.position) {
+      canvas.update(playerObjects);
+    }
   }
 });
