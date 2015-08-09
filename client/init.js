@@ -1,0 +1,1 @@
+new Canvas(1,1);
