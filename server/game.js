@@ -127,11 +127,23 @@ Game.prototype.collide_ = function(player1, player2) {
   m1 = player1.mass;
   m2 = player2.mass;
   dotProd = vectorDot(vectorSub(v1, v2), vectorSub(x1, x2));
-  player1.velocity = v1 - ((2*m2)/(m1 + m2)) *
-    (dotProd/normalize(Math.pow(x1 - x2, 2))) * (x1 - x2);
-  dotProd = (v2 - v1).dot(x2 - x1);
-  player2.velocity = v2 - ((2*m1)/(m1 + m2)) *
-    (dotProd/normalize(Math.pow(x2 - x1, 2))) * (x2 - x1);
+  massConst = ((2*m2)/(m1 + m2));
+  player1.velocity =
+    vectorSub(v1,
+      vectorScalarMult(vectorSub(x1, x2),
+        massConst *
+        (dotProd/Math.pow(vectorMag(vectorSub(x1, x2)),2))
+      )
+    );
+  dotProd = vectorDot(vectorSub(v2, v1), vectorSub(x2, x1));
+  massConst = ((2*m1)/(m1 + m2));
+  player2.velocity =
+    vectorSub(v2,
+      vectorScalarMult(vectorSub(x2, x1),
+        massConst *
+        (dotProd/Math.pow(vectorMag(vectorSub(x2, x1)),2))
+      )
+    );
 };
 
 Game.prototype.update = function() {

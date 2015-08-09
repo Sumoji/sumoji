@@ -24,8 +24,12 @@ function vectorSub(v1, v2) {
  * @return {undefined}
  */
 function vectorNorm(v) {
-  var mag = sqrt(Math.pow(v[0], 2), Math.pow(v[1], 2));
+  var mag = Math.sqrt(Math.pow(v[0], 2), Math.pow(v[1], 2));
   return [v[0]/mag, v[1]/mag];
+}
+
+function vectorMag(v) {
+  return Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2));
 }
 
 /**
@@ -36,10 +40,6 @@ function vectorNorm(v) {
  */
 function vectorDot(v1, v2) {
   return v1[0] * v2[0] + v1[1] * v2[1];
-}
-
-function vectorScalarMult(v1, s) {
-  return [v1[0] * s, v1[1] * s];
 }
 
 function vectorScalarMult(v1, s) {
