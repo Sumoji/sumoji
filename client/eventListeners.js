@@ -30,8 +30,8 @@ Template.connect.events({
       username: username,
       emoji: emoji,
       mass: 10,
-      position: [canvas.width / 2, canvas.height / 2],
-      velocity: [0,0]
+      position: [Math.random() * canvas.width, Math.random() * canvas.height],
+      velocity: [0, 0]
     };
 
     var uid = Players.insert(Player);

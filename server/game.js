@@ -175,7 +175,6 @@ Game.prototype.update = function() {
   }
 };
 
-
 var game = new Game();
 
 Meteor.methods({
