@@ -7,6 +7,7 @@ Player: {
   position: [Number, Number] current xy-coordinates
 }
 **/
+
 Game = function() {
   this.maxSpeed = 200;
 
@@ -90,6 +91,7 @@ Meteor.methods({
   movePlayer: function(playerID, x, y) {
     game.applyClick(playerID, x, y);
   }
+
   checkGameState: function() {
 
   }
