@@ -1,5 +1,6 @@
 Template.sumoarena.events({
   'click canvas': function(evt) {
-    console.log(evt);
+    player = Session.get('playerId') || 'hello';
+    Meteor.call('movePlayer', player, evt.clientX, evt.clientY);
   }
 });
