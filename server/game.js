@@ -29,10 +29,6 @@ Game.prototype.applyClick = function(playerID, x, y) {
   // v1.translate(v2.multiplyByScalar(moveSpeed));
   var player = Players.find({_id : playerID}).fetch()[0];
   var mousePoint = [x, y];
-  console.log("asdfsadfasdfasdfasdf");
-  console.log(playerID);
-  console.log(player);
-  var posPoint = [player.position[0], player.position[1]];
   var inputVelocity = vectorSub(mousePoint, posPoint);
 
   // inputVelocity = (inputVelocity / inputVelocity.length) * 10;
@@ -152,7 +148,6 @@ Game.prototype.collide_ = function(player1, player2) {
 };
 
 Game.prototype.update = function() {
-  console.log("game.update called");
   var allPlayers = Players.find().fetch();
   var collisionPairs = this.collidingPlayers_(allPlayers);
   for (var i = 0; i < collisionPairs.length; i++) {
@@ -186,7 +181,6 @@ Meteor.methods({
   },
 
   startGameClock: function() {
-    console.log(game);
     if (!game.isRunning) {
       game.isRunning = true;
       Meteor.setInterval(function() {game.update()}, 100);
