@@ -29,7 +29,7 @@ Game.prototype.applyClick = function(playerID, x, y) {
   // v1.translate(v2.multiplyByScalar(moveSpeed));
   var player = Players.find({_id : playerID}).fetch()[0];
   var mousePoint = [x, y];
-  var inputVelocity = vectorSub(mousePoint, posPoint);
+  var inputVelocity = vectorSub(mousePoint, player.position);
 
   // inputVelocity = (inputVelocity / inputVelocity.length) * 10;
   var nextVelocity = vectorAdd(player.velocity, inputVelocity);
