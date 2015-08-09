@@ -5,6 +5,8 @@ Game = function() {
   this.MAX_SPEED = 5;
   this.FRICTION = 0.8;
   this.isRunning = false;
+  this.growEmojis = ["🍪", "🍕", "🍎"];
+  this.shrinkEmojis = ["🐍", "🐝", "👻"];
 };
 
 /**
@@ -47,7 +49,7 @@ Game.prototype.applyClick = function(playerID, x, y) {
  * @return {undefined}
  */
 Game.prototype.shrink_ = function(player) {
-  player.mass = player.mass*.95;
+  player.mass = player.mass*.75;
 };
 
 /**
@@ -56,7 +58,7 @@ Game.prototype.shrink_ = function(player) {
  * @return {undefined}
  */
 Game.prototype.grow_ = function(player) {
-  player.mass = player.mass*1.05;
+  player.mass = player.mass*1.25;
 };
 
 Game.prototype.friction_ = function(player) {
@@ -118,6 +120,24 @@ Game.prototype.collidingPlayers_ = function(players) {
   return results;
 };
 
+Game.prototype.consumePowerUps_ = function(players, powerUps) {
+  for (var i = 0; i < powerUps.length; i++) {
+    var powerUp = powerUps[i];
+    for (var j = 0; j < players.length; j++) {
+      var player = players[j];
+      if (this.isColliding_(powerUp, player)) {
+        if (powerUp.grow) {
+          this.grow_(player);
+        } else {
+          this.shrink_(player);
+        }
+        PowerUps.remove(powerUp._id);
+        break;
+      }
+    }
+  }
+};
+
 /**
  * Determines the velocity of two colliding players
  * @param  {Player} player1 [First colliding player.]
@@ -151,8 +171,37 @@ Game.prototype.collide_ = function(player1, player2) {
     );
 };
 
+Game.prototype.generatePowerUp = function() {
+  var canvas = {
+    width: 1200,
+    height: 600
+  };
+  var x = Math.floor(Math.random() * canvas.width);
+  var y = Math.floor(Math.random() * canvas.height);
+
+  var grow = Math.random() > 0.5 ? 1 : 0;
+  var emoji;
+  if (grow) {
+    emoji = this.growEmojis[Math.floor(Math.random() * this.growEmojis.length)];
+  } else {
+    emoji = this.shrinkEmojis[Math.floor(Math.random() * this.growEmojis.length)];
+  }
+
+  var newPowerUp = {
+    grow: grow,
+    emoji: emoji,
+    mass: 50,
+    position: [x, y],
+    username: '' // hack lolol
+  };
+
+  PowerUps.insert(newPowerUp);
+};
+
 Game.prototype.update = function() {
   var allPlayers = Players.find().fetch();
+  var allPowerUps = PowerUps.find().fetch();
+  this.consumePowerUps_(allPlayers, allPowerUps);
   var collisionPairs = this.collidingPlayers_(allPlayers);
   for (var i = 0; i < collisionPairs.length; i++) {
     var pair = collisionPairs[i];
@@ -170,7 +219,7 @@ Game.prototype.update = function() {
       function(err, num) {
         counter++;
         if (counter == allPlayers.length) {
-          var x = Updates.update({createdAt: {$exists: true}}, {$set: {createdAt: Date.now()}}, {upsert: true});
+          Updates.update({createdAt: {$exists: true}}, {$set: {createdAt: Date.now()}}, {upsert: true});
         }
       }
     );
@@ -187,7 +236,12 @@ Meteor.methods({
   startGameClock: function() {
     if (!game.isRunning) {
       game.isRunning = true;
-      Meteor.setInterval(function() {game.update()}, 100);
+      Meteor.setInterval(function() {
+        game.update();
+        if (Math.random() < 0.01) {
+          game.generatePowerUp();
+        }
+      }, 100);
     }
   }
 });
