@@ -182,10 +182,6 @@ Game.prototype.collide_ = function(player1, player2) {
     );
 };
 
-Game.prototype.losingAnimation_ = function() {
-
-}
-
 Game.prototype.generatePowerUp = function() {
   if (PowerUps.find().count() > this.MAX_POWERUPS) {
     return;
@@ -258,7 +254,6 @@ Game.prototype.update = function() {
             {$set: {createdAt: Date.now()}}, {upsert: true});
         }
       });
-      this.losingAnimation_();
     }
   }
 };
